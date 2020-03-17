@@ -1,0 +1,6 @@
+{
+  "name": "fund",
+  "short_name": "fund",
+  "start_url": "/",
+  "display": "standalone"
+}

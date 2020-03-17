@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "userName": "abc",
+      "accountNumber":"135798",
+      "emailId": "abc@mail.com",
+      "password":"abc",
+      "balance":"5000",
+      "contactNumber":"9876543210"
+    },
+    {
+      "id": 2,
+      "userName": "mno",
+      "accountNumber":"135792",
+      "emailId": "mno@mail.com",
+      "password":"mno",
+      "balance":"4000",
+      "contactNumber":"1234567890"
+    },
+    {
+      "id": 3,
+      "userName": "xyz",
+      "accountNumber":"135794",
+      "emailId": "xyz@mail.com",
+      "password":"xyz",
+      "balance":"3000",
+      "contactNumber":"9876543210"
+    }
+  ]
+}
