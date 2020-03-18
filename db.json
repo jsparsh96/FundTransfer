@@ -2,30 +2,56 @@
   "users": [
     {
       "id": 1,
-      "userName": "abc",
-      "accountNumber":"135798",
-      "emailId": "abc@mail.com",
-      "password":"abc",
-      "balance":"5000",
-      "contactNumber":"9876543210"
+      "userName": "Amit",
+      "accountNumber": "135798",
+      "emailId": "amit@mail.com",
+      "password": "111",
+      "balance": 5800,
+      "contactNumber": "9876543210"
     },
     {
       "id": 2,
-      "userName": "mno",
-      "accountNumber":"135792",
-      "emailId": "mno@mail.com",
-      "password":"mno",
-      "balance":"4000",
-      "contactNumber":"1234567890"
+      "userName": "Shubham",
+      "accountNumber": "135792",
+      "emailId": "shubham@mail.com",
+      "password": "222",
+      "balance": 2900,
+      "contactNumber": "1234567890"
     },
     {
       "id": 3,
-      "userName": "xyz",
-      "accountNumber":"135794",
-      "emailId": "xyz@mail.com",
-      "password":"xyz",
-      "balance":"3000",
-      "contactNumber":"9876543210"
+      "userName": "Sparsh",
+      "accountNumber": "135794",
+      "emailId": "sparsh@mail.com",
+      "password": "333",
+      "balance": "3000",
+      "contactNumber": "9876543210"
+    },
+    {
+      "id": 4,
+      "userName": "Abhinav",
+      "accountNumber": "135791",
+      "emailId": "abhinav@mail.com",
+      "password": "444",
+      "balance": "3000",
+      "contactNumber": "9876543210"
+    }
+  ],
+  "beneficiaries": [
+   
+  ],
+  "history": [
+    {
+      "id": "1",
+      "destinationAccountNumber": "567",
+      "transactionType": "Credit",
+      "transactionAmount": "300"
+    },
+    {
+      "id": "2",
+      "destinationAccountNumber": "568",
+      "transactionType": "Credit",
+      "transactionAmount": "500"
     }
   ]
 }

@@ -118,8 +118,6 @@ class LoginPage extends PolymerElement {
      *  validates if the user exist and logs in to the user portal
      */
     _handleLogin() {
-
-
         if (this.$.loginForm.validate()) {
             let emailId = this.$.username.value;
             let password = this.$.password.value;
@@ -134,8 +132,8 @@ class LoginPage extends PolymerElement {
      * handling the response for the ajax request made
      */
     _handleResponse(event) {
-        
-        this.loggedInUser = event.detail.response;
+        this.loggedInUser = event.detail.response[0];
+        console.log(this.loggedInUser);
         if (this.loggedInUser != 0) {
         sessionStorage.setItem('userData', JSON.stringify(this.loggedInUser));
         window.history.pushState({}, null, '#/dashboard');

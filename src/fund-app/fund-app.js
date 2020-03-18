@@ -17,8 +17,10 @@ class FundApp extends PolymerElement {
     <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}"></app-route>     
     <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
       <registration-page name="registration"></registration-page>
+      <transfer-page name="transfer"></transfer-page>
       <login-page name="login"></login-page>
-      <dashboard-page name="dashboard"></dashboard-page>
+      <beneficiary-page name="beneficiary"></beneficiary-page>
+      <dashboard-page balance={{balance}} name="dashboard"></dashboard-page>
       <view404-page name='view404'></view404-page>
     </iron-pages>
     `;
@@ -30,6 +32,10 @@ class FundApp extends PolymerElement {
         reflectToAttribute: true,
         observer: '_pageChanged'
       },
+      balance:{
+        type:Number,
+        value:0
+      },
       routeData: Object,
       subroute: Object
     };
@@ -40,6 +46,14 @@ class FundApp extends PolymerElement {
       '_routePageChanged(routeData.page)'
     ];
   }
+  ready(){
+    super.ready();
+    this.addEventListener('balance-update',(e) => this.newBalance(e));
+  }
+
+  newBalance(event){
+    this.balance=event.detail.updatedBalance;
+  }
 
   /**
   * 
@@ -49,7 +63,7 @@ class FundApp extends PolymerElement {
     console.log(page)
     if (!page) {
       this.page = 'login';
-    } else if (['registration', 'dashboard', 'login', 'user'].indexOf(page) !== -1) {
+    } else if (['registration','beneficiary','transfer', 'dashboard', 'login', 'user'].indexOf(page) !== -1) {
       this.page = page;
     } else {
       this.page = 'view404';
@@ -68,6 +82,12 @@ class FundApp extends PolymerElement {
         break;
       case 'dashboard':
         import('./dashboard-page.js')
+        break;
+        case 'transfer':
+          import('./transfer-page.js')
+          break;
+        case 'beneficiary':
+        import('./beneficiary-page.js')
         break;
       case 'login':
         import('./login-page.js');
