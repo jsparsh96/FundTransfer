@@ -12,7 +12,8 @@
     "@polymer/paper-item": "^3.0.1",
     "@polymer/paper-listbox": "^3.0.1",
     "@polymer/paper-toast": "^3.0.1",
-    "@polymer/polymer": "^3.0.0"
+    "@polymer/polymer": "^3.0.0",
+    "wct-istanbub": "^0.2.9"
   },
   "devDependencies": {
     "@polymer/test-fixture": "^4.0.2",

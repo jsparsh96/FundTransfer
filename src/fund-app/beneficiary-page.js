@@ -56,6 +56,7 @@ class BeneficiaryPage extends PolymerElement {
             </tbody>
         </table>
 </section>
+<paper-toast id='toast1' duration="3000" text='Added Successfully'></paper-toast>
 <iron-ajax id='ajax' handle-as='json' on-response='_handleResponse' on-error='_handleError' content-type='application/json'></iron-ajax>
 
 
@@ -74,6 +75,7 @@ class BeneficiaryPage extends PolymerElement {
         let beneficiaryAccountNumber = this.$.beneficiaryAccountNumber.value;
         let beneficairyObj = {beneficiaryName:beneficiaryName,beneficiaryAccountNumber:beneficiaryAccountNumber,userName:this.userName};
         this._makeAjaxCall(`http://localhost:3000/beneficiaries`, 'post', beneficairyObj);
+        this.$.toast1.open();
     }
     _handleTransfer() {
         window.history.pushState({}, null, '#/transfer');

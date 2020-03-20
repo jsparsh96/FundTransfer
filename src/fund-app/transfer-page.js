@@ -4,6 +4,8 @@ import '@polymer/paper-button/paper-button.js';
 import '@polymer/iron-ajax/iron-ajax.js';
 import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
 import '@polymer/paper-listbox/paper-listbox.js';
+import '@polymer/paper-dialog/paper-dialog.js';
+import '@polymer/paper-toast/paper-toast.js';
 import '@polymer/paper-item/paper-item.js';
 /**
  * @customElement
@@ -30,6 +32,9 @@ class TransferPage extends PolymerElement {
         paper-input{
           width: 16%;
         }
+        #buttons{
+          width:100%
+        }
       </style>
       <paper-button raised class="customIndigo" on-click="_handleLogout">Logout</paper-button>
       <paper-button raised  class="customIndigo" on-click="_handleBeneficiary">Beneficiary</paper-button>
@@ -47,6 +52,14 @@ class TransferPage extends PolymerElement {
         <paper-input id="transferAmount" type="text" allowed-pattern=[0-9] label="Enter Amount"></paper-input>
         <paper-button id="transferButton" on-click="_handleTransaction" raised>Transfer</paper-button>
     </section>
+    <paper-toast id="invalidAmount" >Enter Valid Amount</paper-toast>
+    <paper-dialog id="confirmation" modal>
+    <p>Do you want to complete this transaction?</p>
+    <div id="buttons">
+    <paper-button on-click="_handleUpdate">Yes</paper-button>
+    <paper-button  dialog-dismiss>No</paper-button>
+        </div>
+    </paper-dialog>
     <iron-ajax id='ajax' handle-as='json' on-response='_handleResponse' on-error='_handleError' content-type='application/json'></iron-ajax>
 
 `;
@@ -76,6 +89,9 @@ class TransferPage extends PolymerElement {
     this.action='List';
     this._makeAjaxCall(`http://localhost:3000/beneficiaries?userName=${this.userName}`, 'get', null);
   }
+  // _handleClose(){
+  //   this.$.confirmation.close();
+  // }
   _handleLogout() {
     sessionStorage.clear();
     window.history.pushState({}, null, '#/login');
@@ -108,21 +124,23 @@ class TransferPage extends PolymerElement {
         this.customer.balance = parseInt(this.customer.balance) + parseInt(this.$.transferAmount.value); 
         console.log(this.customer); 
         this._makeAjaxCall(`http://localhost:3000/users/${this.toCustomer.id}`, 'put', this.customer);
-        this.action='Final';
+        this.$.confirmation.close();
+        window.history.pushState({}, null, '#/dashboard');
+        window.dispatchEvent(new CustomEvent('location-changed'));
         break;
       }
     }
   }
   _handleTransaction() {
     let amount = this.$.transferAmount.value;
-    let userDetails = JSON.parse(sessionStorage.getItem('userData'));
-    if (amount < this.balance - 500) {
-      
-      confirm('Do you want to complete this transaction?');
+    this.userDetails = JSON.parse(sessionStorage.getItem('userData'));
+    if (amount<=0) {
+      this.$.invalidAmount.open();
+    }
+    else if(amount < this.balance - 500){
+      this.$.confirmation.open();
       let updatedBalance = this.balance - amount;
-      userDetails.balance = updatedBalance;
-      this._makeAjaxCall(`http://localhost:3000/users/${userDetails.id}`, 'put', userDetails);
-      this.action='Transfer';
+      this.userDetails.balance = updatedBalance;
       // this.dispatchEvent(new CustomEvent('balance-update', { detail: { updatedBalance } }));
     }
     else if (amount > this.balance) {
@@ -131,6 +149,12 @@ class TransferPage extends PolymerElement {
     else {
       alert('Minimum Balance is to be maintained');
     }
+
+  }
+  _handleUpdate(){
+    console.log(this.userDetails);
+    this._makeAjaxCall(`http://localhost:3000/users/${this.userDetails.id}`, 'put', this.userDetails);
+    this.action='Transfer';
 
   }
   /**

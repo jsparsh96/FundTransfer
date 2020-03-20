@@ -140,6 +140,14 @@ class Dashboard extends PolymerElement {
       userData: Array
     };
   }
+  //if session storage is clear then it will be redirected to login page
+  ready() {
+    super.ready();
+    let name = sessionStorage.getItem('userName');
+    if (name === null) {
+      this.set('route.path', './login-page')
+    }
+  }
   //getting list of all the transasctions
   connectedCallback() {
     super.connectedCallback();
@@ -149,14 +157,28 @@ class Dashboard extends PolymerElement {
     this.balance = userObj.balance;
     this._makeAjax(`http://localhost:3000/history`, 'get', null);
   }
+  _displayTable(){
+    this.$.tab.style.display='block';
+  }
+  //routing to the fund transfer section
+  _handleTransfer() {
+    window.history.pushState({}, null, '#/transfer');
+    window.dispatchEvent(new CustomEvent('location-changed'));
+  }
   _handleLogout(){
     sessionStorage.clear();
     window.history.pushState({}, null, '#/login');
     window.dispatchEvent(new CustomEvent('location-changed'));
   }
-  _displayTable(){
-    this.$.tab.style.display='block';
+  _handleBeneficiary(){
+    window.history.pushState({}, null, '#/beneficiary');
+    window.dispatchEvent(new CustomEvent('location-changed'));
   }
+  //handling the responses from the API call
+  _handleResponse(event) {    
+    this.data = event.detail.response;
+    console.log(this.data);    
+  }  
   // calling main ajax call method 
   _makeAjax(url, method, postObj) {
     let ajax = this.$.ajax;
@@ -165,34 +187,6 @@ class Dashboard extends PolymerElement {
     ajax.body = postObj ? JSON.stringify(postObj) : undefined;
     ajax.generateRequest();
   }
-  //routing to the fund transfer section
-  _handleTransfer() {
-    window.history.pushState({}, null, '#/transfer');
-    window.dispatchEvent(new CustomEvent('location-changed'));
-  }
-
-  _handleBeneficiary(){
-    window.history.pushState({}, null, '#/beneficiary');
-    window.dispatchEvent(new CustomEvent('location-changed'));
-  }
-  //handling the responses from the API call
-  _handleResponse(event) {
-    
-      
-        this.data = event.detail.response;
-        console.log(this.data);
-
-    
-  }
-  //if session storage is clear then it will be redirected to login page
-  ready() {
-    super.ready();
-    let name = sessionStorage.getItem('userName');
-    if (name === null) {
-      this.set('route.path', './login-page')
-    }
-  }
-
 }
 
 window.customElements.define('dashboard-page', Dashboard);

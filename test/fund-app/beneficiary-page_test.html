@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>fund-app test</title>
+
+    <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../node_modules/@polymer/test-fixture/test-fixture.js"></script>
+    <script src="../../node_modules/mocha/mocha.js"></script>
+    <script src="../../node_modules/chai/chai.js"></script>
+    <script src="../../node_modules/wct-mocha/wct-mocha.js"></script>
+
+    <script type="module" src="../../src/fund-app/beneficiary-page.js"></script>
+  </head>
+  <body>
+
+    <test-fixture id="beneficiaryPageFixture">
+      <template>
+        <beneficiary-page></beneficiary-page>
+      </template>
+    </test-fixture>
+
+
+    <script>
+    describe('Given beneficiary Page Component:',function(){
+        var element;
+        var elementShadowRoot;
+                     it('should render container element', function () {
+                         let container = elementShadowRoot.querySelector('#container')
+                         expect(body).to.be.exist;
+                         expect(body).to.not.null;
+                     });                
+                     it('should render header element', function () {
+                         let header = elementShadowRoot.querySelector('header')
+                         expect(header).to.be.exist;
+                         expect(header).to.not.null;
+                     });
+                     it('should render main element', function () {
+                         let main = elementShadowRoot.querySelector('main')
+                         expect(main).to.be.exist;
+                         expect(main).to.not.null;
+                     });
+                     it('should render iron-form element', function () {
+                         let loginForm = elementShadowRoot.querySelector('loginForm')
+                         expect(loginForm).to.be.exist;
+                         expect(loginForm).to.not.null;
+                     });
+                     it('should render form element', function () {
+                         let form = elementShadowRoot.querySelector('form')
+                         expect(form).to.be.exist;
+                         expect(form).to.not.null;
+                     });
+                
+                     it('should render div element', function () {
+                         let container = elementShadowRoot.querySelector('#loginFields')
+                         expect(body).to.be.exist;
+                         expect(body).to.not.null;
+                     });
+                     it('should render header element', function () {
+                         let form = elementShadowRoot.querySelector('h1')
+                         expect(form).to.be.exist;
+                         expect(form).to.not.null;
+                     });
+                
+                     it('should render paper-input element', function () {
+                         let username = elementShadowRoot.querySelector('#username')
+                         expect(username).to.be.exist;
+                         expect(username).to.not.null;
+                     });
+                     it('should render paper-input element', function () {
+                         let password = elementShadowRoot.querySelector('#password')
+                         expect(password).to.be.exist;
+                         expect(password).to.not.null;
+                     });
+                     it('should render paper-button element', function () {
+                         let loginButton = elementShadowRoot.querySelector('#loginButton')
+                         expect(loginButton).to.be.exist;
+                         expect(loginButton).to.not.null;
+                     });
+                     it('should render paper-toast field', function () {
+                         let toast0 = elementShadowRoot.querySelector('#toast0')
+                         expect(toast0).to.be.exist;
+                         expect(toast0).to.not.null;
+                     });
+                     it('should render paper-toast field', function () {
+                         let toast1 = elementShadowRoot.querySelector('#toast1')
+                         expect(toast1).to.be.exist;
+                         expect(toast1).to.not.null;
+                     });
+                     it('should render paper-toast field', function () {
+                         let toast1 = elementShadowRoot.querySelector('#toast2')
+                         expect(toast2).to.be.exist;
+                         expect(toast2).to.not.null;
+                     });
+                     it('should render iron-ajax component', function () {
+                         let ironAjax = elementShadowRoot.querySelector('#ajax')
+                         expect(ironAjax).to.be.exist;
+                         expect(ironAjax).to.not.null;
+                     });
+            describe('when component is initialised',function(){
+                beforeEach(function(){
+                    element = fixture('dashboardPageFixture');
+                    elementShadowRoot = element.shadowRoot;
+                });
+                it('should render the components',function(){
+                    expect(element).to.be.exist;
+                    expect(elementShadowRoot).to.be.exist;
+                });
+                when('the account is selected',function(){
+                    let signIn;
+                    let setActive;
+                    beforeEach((done)=>{
+                        flush(function(){
+                            signIn = document.querySelector('#loginButton');
+                            setActive = sinon.spy();
+                            signIn.addEventListener('click',setActive);
+                            done();
+                        })
+                    });
+                    afterEach(()=>{
+                        sinon.restore();
+                    });
+                    describe('should call _handleLogin method once',function(){
+                        afterEach(function(){
+                            signIn.click();
+                            expect(setActive.callCount).to.be.equal(1);
+                        });
+                        it('should go to if statement',function(){
+                            element.$.username.value='shubham@mail.com';
+                            element.$.password.value='222';
+                        });
+                    });
+                });
+            });
+        });
+
+    </script>
+
+
+  </body>
+</html>

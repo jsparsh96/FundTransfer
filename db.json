@@ -15,7 +15,7 @@
       "accountNumber": "135792",
       "emailId": "shubham@mail.com",
       "password": "222",
-      "balance": 2900,
+      "balance": 1697,
       "contactNumber": "1234567890"
     },
     {
@@ -24,7 +24,7 @@
       "accountNumber": "135794",
       "emailId": "sparsh@mail.com",
       "password": "333",
-      "balance": "3000",
+      "balance": 4904,
       "contactNumber": "9876543210"
     },
     {
@@ -33,12 +33,17 @@
       "accountNumber": "135791",
       "emailId": "abhinav@mail.com",
       "password": "444",
-      "balance": "3000",
+      "balance": 8000,
       "contactNumber": "9876543210"
     }
   ],
   "beneficiaries": [
-   
+    {
+      "beneficiaryName": "Sparsh",
+      "beneficiaryAccountNumber": "135794",
+      "userName": "Shubham",
+      "id": 1
+    }
   ],
   "history": [
     {
